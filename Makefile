@@ -8,4 +8,6 @@ all : 	$(NAME)
 clean : 
 	docker-compose --project-directory srcs -f srcs/docker-compose.yml down
 
-.PHONY : all clean
+re : clean all 
+
+.PHONY : all clean re
