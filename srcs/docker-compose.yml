@@ -1,19 +1,41 @@
 version: '3.3'
 services:
     nginx:
+        container_name: nginx
         build: ./requirements/nginx
+        restart: always
         ports:
             - "443:443"
-mysql:
-    image: mariadb
-    volumes:
-      - /data/mysql:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: mysql_root_pass
-      MYSQL_DATABASE: db_name
-      MYSQL_USER: user_name
-      MYSQL_PASSWORD: user_pass
-    restart: always
+        volumes:
+            - ./tools/share:/share
+  #  mysql:
+   #     image: mariadb
+    #    build: ./requirements/mariadb
+     #   volumes:
+      #      - /data/mysql:/var/lib/mysql
+      #  environment:
+    #      MYSQL_ROOT_PASSWORD: mysql_root_pass
+    #      MYSQL_DATABASE: db_name
+   #       MYSQL_USER: user_name
+    #      MYSQL_PASSWORD: user_pass
+    #    restart: always
+    wordpress:
+      # depends_on:
+       #   - mariadb
+       container_name: wordpress
+       build: ./requirements/wordpress
+       restart: always
+       volumes:
+            - ./tools/share:/share
+  #     ports:
+  #        - '8080:80'
+  #     environment:
+  #       PMA_HOST: mariadb
+   #      MYSQL_ROOT_PASSWORD: password
+   #    links:
+   #      - nginx 
+      # networks:
+       #  - wpsite
 #wordpress:
  #   image: wordpress:php7.3-fpm-alpine
   #  volumes:
@@ -27,6 +49,11 @@ mysql:
    #   WORDPRESS_DB_USER: user_name
    #   WORDPRESS_DB_PASSWORD: user_pass
    #   WORDPRESS_TABLE_PREFIX: wp_
-  #  links:
-  #    - mysql
   #  restart: always
+
+networks:
+  wp:
+
+volumes:
+  db_data:
+

@@ -10,3 +10,4 @@ COPY my.cnf /etc/my.cnf
 #RUN mkdir -p /data/mysql
 #RUN chown -R mysql:mysql /data/mysql
 #RUN rc-service mariadb start
+RUN mariadb-install-db

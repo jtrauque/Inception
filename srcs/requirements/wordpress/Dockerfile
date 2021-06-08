@@ -1,12 +1,13 @@
 FROM alpine:3.12.7
 
-RUN apk add wgeti php5-mysql mysql mysql-client php5-zlib
+RUN apk add wget php7 php7-fpm php7-opcache php7-mysqli php7-zlib php7-curl
 
-RUN mkdir /var/www/wordpress
-RUN wget -c https://wordpress.org/latest.tar.gz
-RUN tar xzvf latest.tar.gz --strip-components 1 -C /var/www/wordpress
-RUN rm -rf latest.tar.gz
-COPY /srcs/wp-config.php /var/www/wordpress/
+#RUN mkdir /var/www/wordpress
+#RUN wget -c https://wordpress.org/latest.tar.gz
+#RUN tar xzvf latest.tar.gz --strip-components 1 -C /var/www/wordpress
+#RUN rm -rf latest.tar.gz
+#COPY /srcs/wp-config.php /var/www/wordpress/
 
-EXPOSE 5050
+COPY /srcs/index.php /var/www/localhost/
+EXPOSE 5050 5000
 
