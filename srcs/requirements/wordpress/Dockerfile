@@ -7,10 +7,9 @@ RUN apk add wget php7 php7-fpm php7-opcache php7-mysqli php7-zlib php7-curl
 #RUN tar xzvf latest.tar.gz --strip-components 1 -C /var/www/wordpress
 #RUN rm -rf latest.tar.gz
 #COPY /srcs/wp-config.php /var/www/wordpress/
-#CMD ["php7", "-S", "0.0.0.0:9000", "-t", "/var/www/wordpress"]
 
 COPY srcs/www.conf /etc/php7/php-fpm.d/
-COPY srcs/index.php /code/
+#COPY srcs/index.php /code/
 CMD php-fpm7 -F
 
 EXPOSE 5050 5000 9000
