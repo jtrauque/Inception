@@ -18,9 +18,13 @@ services:
        build: ./requirements/wordpress
        restart: unless-stopped
        volumes:
-            - ./requirements/tools/code:/code
+          - ./requirements/tools/code:/code
+       environment:
+          - WORDPRESS_DB_HOST: mariadb:3306
+          - WORDPRESS_DB_USER: wordpress
+          - WORDPRESS_DB_PASSWORD: wordpress
        networks:
-            - network
+          - network
      
     mariadb:
       container_name: mariadb
