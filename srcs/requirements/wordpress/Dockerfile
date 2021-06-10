@@ -1,4 +1,5 @@
 FROM alpine:3.12.7
+MAINTAINER Julie Trauque, jtrauque@student.42.fr
 
 RUN apk add wget php7 php7-fpm php7-opcache php7-mysqli php7-zlib php7-curl
 

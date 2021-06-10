@@ -12,6 +12,8 @@ services:
         networks:
             - network 
     wordpress:
+       depends_on: 
+         - mariadb
        container_name: wordpress
        build: ./requirements/wordpress
        restart: unless-stopped
@@ -19,43 +21,20 @@ services:
             - ./requirements/tools/code:/code
        networks:
             - network
+     
+    mariadb:
+      container_name: mariadb
+      build: ./requirements/mariadb
+      restart: always
+      ports:
+            - '3306:3306'
+      environment:
+            - ${MYSQL_ROOT_PASSWORD}
+            - ${MYSQL_USER}
+            - ${MYSQL_PASSWORD}
+        #    - MYSQL_DATABASE: ${VARIABLE_DE_.ENV2}
+    #      MYSQL_DATABASE: db_name
+
 networks:
      network: 
-     
-       #         mariadb:
-      #  container_name: mariadb
-    #    build: ./requirements/mariadb
-    #    restart: always
-  #     ports:
-  #        - '3306:3306'
-     #   volumes:
-      #      - /data/mysql:/var/lib/mysql
-      #  environment:
-      #  environment:
-      #        - MYSQL_ROOT_PASSWORD: ${VARIABLE_DE_.ENV1}
-      #      - MYSQL_DATABASE: ${VARIABLE_DE_.ENV2}
-      #       - MYSQL_USER: ${VARIABLE_DE_.ENV2}
-      #       - MYSQL_PASSWORD: ${VARIABLE_DE_.ENV2}
-    #      MYSQL_ROOT_PASSWORD: mysql_root_pass
-    #      MYSQL_DATABASE: db_name
-   #       MYSQL_USER: user_name
-    #      MYSQL_PASSWORD: user_pass
-
-#wordpress:
- #   image: wordpress:php7.3-fpm-alpine
-  #  volumes:
-   #   - /data/html:/var/www/html
-   # depends_on:
-    #  - mysql
-  #  environment:
-   #   WORDPRESS_DB_HOST: mysql
-   #   MYSQL_ROOT_PASSWORD: mysql_root_pass
-   #   WORDPRESS_DB_NAME: db_name
-   #   WORDPRESS_DB_USER: user_name
-   #   WORDPRESS_DB_PASSWORD: user_pass
-   #   WORDPRESS_TABLE_PREFIX: wp_
-  #  restart: always
-
-              #volumes:
-              #db_data:
 

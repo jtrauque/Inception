@@ -1,16 +1,21 @@
 FROM alpine:3.12.7
+MAINTAINER Julie Trauque, jtrauque@student.42.fr
 
 RUN apk update
 RUN apk add mariadb mariadb-common mariadb-client
-COPY my.cnf /etc/my.cnf
-# RUN apk add mysql mysql-client
-# RUN mkdir -p /run/mysqld/
-# RUN userdel mysql
-# RUN useradd -u 999 mysql
-#RUN mkdir -p /data/mysql
-#RUN chown -R mysql:mysql /data/mysql
-#RUN rc-service mariadb start
+RUN apk add mysql mysql-client
 
-#RUN mariadb-install-db
+RUN mkdir -p /run/mysqld/
+RUN mkdir -p /data/mysql
+RUN chown -R mysql:mysql /run/mysqld
+
+RUN sed -i "7i user=mysql\ndatadir=/var/lib/mysql/" /etc/my.cnf.d/mariadb-server.cnf
+COPY ./srcs/ /srcs/
+COPY /srcs/my.cnf /etc/mysql/
+
+RUN mariadb-install-db --user=mysql \
+   --datadir=/var/lib/mysql
 
 EXPOSE 3306
+
+CMD ["mysqld", "-umysql"]
