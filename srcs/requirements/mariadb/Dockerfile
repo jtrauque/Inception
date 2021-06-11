@@ -15,6 +15,9 @@ COPY /srcs/my.cnf /etc/mysql/
 
 RUN mariadb-install-db --user=mysql \
    --datadir=/var/lib/mysql
+RUN sh -c "mysql &"\
+    sleep 5 && \
+    echo "CREATE DATABASE mydb" | mysql
 
 EXPOSE 3306
 
