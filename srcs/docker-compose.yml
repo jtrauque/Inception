@@ -8,7 +8,7 @@ services:
             - "443:443"
         volumes:
             - ./requirements/tools/code:/code
-            - ./requirements/nginx/srcs/nginx.conf:/etc/nginx/nginx.conf
+            - db_data:./requirements/nginx/srcs/nginx.conf:/etc/nginx/nginx.conf
         networks:
             - network 
     wordpress:
@@ -18,11 +18,13 @@ services:
        build: ./requirements/wordpress
        restart: unless-stopped
        volumes:
-          - ./requirements/tools/code:/code
+           #  - ./requirements/tools/code:/code
+          - wp_data:/var/www/html
        environment:
-          - WORDPRESS_DB_HOST: mariadb:3306
-          - WORDPRESS_DB_USER: wordpress
-          - WORDPRESS_DB_PASSWORD: wordpress
+          - ${WORDPRESS_DB_HOST}
+          - ${WORDPRESS_DB_USER}
+          - ${WORDPRESS_DB_PASSWORD}
+          - ${WORDPRESS_DB_NAME}
        networks:
           - network
      
@@ -39,6 +41,10 @@ services:
         #    - MYSQL_DATABASE: ${VARIABLE_DE_.ENV2}
     #      MYSQL_DATABASE: db_name
 
+volumes:
+    db_data: {}
+    wp_data: {}
+ 
 networks:
      network: 
 
