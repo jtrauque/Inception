@@ -20,16 +20,16 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', 'wordpress' );
+define( 'DB_NAME', getenv('$WORDPRESS_DB_NAME') );
 
 /** MySQL database username */
-define( 'DB_USER', 'username' );
+define( 'DB_USER', getenv('$WORDPRESS_DB_USER') );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', 'somepassword' );
+define( 'DB_PASSWORD', getenv('$WORDPRESS_DB_PASSWORD' ));
 
 /** MySQL hostname */
-define( 'DB_HOST', 'mariadb:3306' );
+define( 'DB_HOST', getenv('$WORDPRESS_DB_HOST') );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -77,16 +77,18 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', true );
-// Enable Debug logging to the /wp-content/debug.log file
-define( 'WP_DEBUG_LOG', true );
+ // Activer le mode WP_DEBUG
+define('WP_DEBUG', true);
 
-// Disable display of errors and warnings
-define( 'WP_DEBUG_DISPLAY', false );
-@ini_set( 'display_errors', 0 );
+// Activer l'enregistrement de débogage dans le fichier /wp-content/debug.log
+define('WP_DEBUG_LOG', true);
 
-// Use dev versions of core JS and CSS files (only needed if you are modifying these core files)
-define( 'SCRIPT_DEBUG', true );
+// Désactiver l'affichage des erreurs et des alertes 
+define('WP_DEBUG_DISPLAY', false);
+@ini_set('display_errors',0);
+
+// Utiliser les versions de dev des fichiers JS et CSS du noyau (nécessaire seulement si vous modifiez ces fichiers)
+define('SCRIPT_DEBUG', true);
 /* That's all, stop editing! Happy publishing. */
 
 /** Absolute path to the WordPress directory. */

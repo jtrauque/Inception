@@ -21,10 +21,10 @@ services:
            - ./requirements/tools/code:/code
            - /var/lib/mysql
        environment:
-            WORDPRESS_DB_HOST: mariadb:3306
-            WORDPRESS_DB_USER: username
-            WORDPRESS_DB_PASSWORD: wordpress
-            WORDPRESS_DB_NAME: wordpress
+             WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+             WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+             WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+             WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
        networks:
           - network
      
@@ -36,13 +36,11 @@ services:
             - '3306:3306'
       volumes: 
             - var/lib/mysql
-      env_file:
-            - .env
-              #   - ${MYSQL_ROOT_PASSWORD}
-              # - ${MYSQL_USER}
-              #   - ${MYSQL_PASSWORD}
-        #    - MYSQL_DATABASE: ${VARIABLE_DE_.ENV2}
-    #      MYSQL_DATABASE: db_name
+      environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
       networks:
             - network
 
