@@ -11,6 +11,11 @@ RUN apk add wget php7 php7-fpm php7-opcache php7-mysqli php7-zlib php7-curl php7
 # COPY srcs /srcs/
 # COPY /srcs/wp-config.php /code/
 
+RUN export WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST} 
+ENV WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+ENV WORDPRESS_DB_PASSWORD=$WORDPRESS_DB_PASSWORD 
+ENV WORDPRESS_DB_DATABASE=$WORDPRESS_DB_DATABASE
+RUN echo "host = $WORDPRESS_DB_HOST" > toto
 COPY /srcs/www.conf /etc/php7/php-fpm.d/
 # COPY srcs/index.php /code/
 CMD php-fpm7 -F

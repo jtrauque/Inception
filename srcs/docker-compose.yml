@@ -20,11 +20,13 @@ services:
        volumes:
            - ./requirements/tools/code:/code
            - /var/lib/mysql
+       env_file:
+           - .env
        environment:
-             WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
-             WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
-             WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-             WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
+             - WORDPRESS_DB_HOST=HELLO
+             #  WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
+             #  WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+             #  WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
        networks:
           - network
      
@@ -36,6 +38,8 @@ services:
             - '3306:3306'
       volumes: 
             - var/lib/mysql
+      env_file:
+            - .env
       environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_USER: ${MYSQL_USER}

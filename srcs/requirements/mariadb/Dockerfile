@@ -23,7 +23,7 @@ RUN sh -c "mysqld &" &&\
     sleep 5 && \
 	echo "CREATE DATABASE MYSQL_DATABASE" | mysql &&\
 	echo "CREATE USER 'MYSQL_USER'@'%' IDENTIFIED BY 'MYSQL_PASSWORD';" | mysql &&\
-	echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'MYSQL_USER'@'%';" | mysql &&\
+	echo "GRANT ALL PRIVILEGES ON MYSQL_DATABASE.* TO 'MYSQL_USER'@'%';" | mysql &&\
 	echo "FLUSH PRIVILEGES;" | mysql
 
 EXPOSE 3306
