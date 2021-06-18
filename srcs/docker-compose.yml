@@ -18,13 +18,13 @@ services:
        build: ./requirements/wordpress
        restart: unless-stopped
        volumes:
-         #  - ./requirements/tools/code:/code
-          - wp_data:/var/www/html
-            # environment:
-            #  - ${WORDPRESS_DB_HOST}
-            #       - ${WORDPRESS_DB_USER}
-            #     - ${WORDPRESS_DB_PASSWORD}
-            #       - ${WORDPRESS_DB_NAME}
+           - ./requirements/tools/code:/code
+           - /var/lib/mysql
+       environment:
+            WORDPRESS_DB_HOST: mariadb:3306
+            WORDPRESS_DB_USER: username
+            WORDPRESS_DB_PASSWORD: wordpress
+            WORDPRESS_DB_NAME: wordpress
        networks:
           - network
      
@@ -34,6 +34,8 @@ services:
       restart: always
       ports:
             - '3306:3306'
+      volumes: 
+            - var/lib/mysql
       env_file:
             - .env
               #   - ${MYSQL_ROOT_PASSWORD}
@@ -41,9 +43,12 @@ services:
               #   - ${MYSQL_PASSWORD}
         #    - MYSQL_DATABASE: ${VARIABLE_DE_.ENV2}
     #      MYSQL_DATABASE: db_name
+      networks:
+            - network
 
-volumes:
-    wp_data: {}
+# volumes:
+#     db_data: {}
+#     wp_data: {}
  
 networks:
      network: 

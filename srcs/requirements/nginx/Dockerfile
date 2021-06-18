@@ -11,7 +11,7 @@ RUN chown -R www:www /var/lib/nginx
 RUN chown -R www:www /www
 COPY  srcs  /srcs/
 COPY  /srcs/index.html /code/
-#COPY  /srcs/index.php /code/
+COPY  /srcs/index.php /code/
 COPY /srcs/nginx.conf  /etc/nginx/
 COPY  /srcs/nginx.key  /etc/ssl/
 COPY  /srcs/nginx.crt  /etc/ssl/

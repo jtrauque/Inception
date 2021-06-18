@@ -15,9 +15,12 @@ COPY /srcs/my.cnf /etc/mysql/
 
 RUN mariadb-install-db --user=mysql \
    --datadir=/var/lib/mysql
-RUN sh -c "mysql &"\
+RUN sh -c "mysqld &" &&\
     sleep 5 && \
-    echo "CREATE DATABASE mydb" | mysql
+	echo "CREATE DATABASE wordpress" | mysql &&\
+	echo "CREATE USER 'username'@'%' IDENTIFIED BY 'somepassword';" | mysql &&\
+	echo "GRANT ALL PRIVILEGES ON wordpress.* TO 'username'@'%';" | mysql &&\
+	echo "FLUSH PRIVILEGES;" | mysql
 
 EXPOSE 3306
 
