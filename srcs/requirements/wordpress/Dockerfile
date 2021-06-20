@@ -3,18 +3,15 @@ MAINTAINER Julie Trauque, jtrauque@student.42.fr
 
 RUN apk add wget php7 php7-fpm php7-opcache php7-mysqli php7-zlib php7-curl php7-json
 
-# RUN mkdir -p /var/www/html/wordpress
-# RUN wget -c https://wordpress.org/latest.tar.gz
+RUN mkdir -p /var/www/html
+RUN wget -c https://wordpress.org/latest.tar.gz
 # RUN mkdir -p /code/
-# RUN tar xf latest.tar.gz -C /code/
-# RUN rm -rf latest.tar.gz
+# RUN tar xf latest.tar.gz -C /var/www/html
+RUN tar xzvf latest.tar.gz --strip-components 1 -C /var/www/html
+RUN rm -rf latest.tar.gz
 # COPY srcs /srcs/
-# COPY /srcs/wp-config.php /code/
+COPY /srcs/wp-config.php /var/www/html/
 
-RUN export WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST} 
-ENV WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
-ENV WORDPRESS_DB_PASSWORD=$WORDPRESS_DB_PASSWORD 
-ENV WORDPRESS_DB_DATABASE=$WORDPRESS_DB_DATABASE
 RUN echo "host = $WORDPRESS_DB_HOST" > toto
 COPY /srcs/www.conf /etc/php7/php-fpm.d/
 # COPY srcs/index.php /code/
