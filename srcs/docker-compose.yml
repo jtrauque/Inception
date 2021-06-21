@@ -2,6 +2,7 @@ version: '3.3'
 services:
     nginx:
         container_name: nginx
+        # domainname: ${DOMAIN_NAME}
         build: ./requirements/nginx
         restart: unless-stopped
         ports:
@@ -13,10 +14,22 @@ services:
         networks:
             - network 
     wordpress:
-       depends_on: 
+       depends_on:
          - mariadb
        container_name: wordpress
-       build: ./requirements/wordpress
+       # domainname: ${DOMAIN_NAME}
+       build: 
+         context: ./requirements/wordpress
+         args:
+          - DOMAIN_NAME=${DOMAIN_NAME}
+          - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+          - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+          - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+          - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+          - WORDPRESS_USER_EMAIL=${WORDPRESS_USER_EMAIL}
+          - WORDPRESS_DB_USER2=${WORDPRESS_DB_USER2}
+          - WORDPRESS_USER_EMAIL2=${WORDPRESS_USER_EMAIL2}
+          - WORDPRESS_DB_PASSWORD2=${WORDPRESS_DB_PASSWORD2}
        restart: unless-stopped
        volumes:
            - wp_data:/var/www/html
@@ -24,15 +37,20 @@ services:
        env_file:
            - .env
        environment:
-           - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
-           - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
-           - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
-           - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+          - DOMAIN_NAME=${DOMAIN_NAME}
+          - WORDPRESS_DB_HOST=${WORDPRESS_DB_HOST}
+          - WORDPRESS_DB_USER=${WORDPRESS_DB_USER}
+          - WORDPRESS_DB_PASSWORD=${WORDPRESS_DB_PASSWORD}
+          - WORDPRESS_DB_NAME=${WORDPRESS_DB_NAME}
+          - WORDPRESS_USER_EMAIL=${WORDPRESS_USER_EMAIL}
+          - WORDPRESS_DB_USER2=${WORDPRESS_DB_USER2}
+          - WORDPRESS_USER_EMAIL2=${WORDPRESS_USER_EMAIL2}
+          - WORDPRESS_DB_PASSWORD2=${WORDPRESS_DB_PASSWORD2}
        networks:
            - network
-     
     mariadb:
       container_name: mariadb
+      # domainname: ${DOMAIN_NAME}
       build: 
         context: ./requirements/mariadb
         args:

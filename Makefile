@@ -12,7 +12,8 @@ $(NAME) :
 all : 	$(NAME)
 
 clean : 
-	docker-compose --project-directory srcs -f srcs/docker-compose.yml down
+	cd srcs/ &&\
+	docker-compose down
 
 re : clean all 
 
