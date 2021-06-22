@@ -1,15 +1,13 @@
 NAME = "inception"
 
 $(NAME) : 
-	cd srcs/ &&\
-	docker-compose up -d
+	docker-compose --project-directory srcs -f srcs/docker-compose.yml up -d
 
 
 all : 	$(NAME)
 
 clean : 
-	cd srcs/ &&\
-	docker-compose down
+	docker-compose --project-directory srcs -f srcs/docker-compose.yml down
 
 re : clean all 
 
