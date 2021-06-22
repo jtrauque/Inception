@@ -13,8 +13,6 @@ ARG WORDPRESS_USER_EMAIL2
 
 RUN apk add wget php7 php7-fpm php7-opcache php7-mysqli php7-zlib php7-curl php7-json curl php-phar php7-iconv
 
-#test
-RUN echo "host = $WORDPRESS_DB_HOST" > toto
 COPY /srcs/ /srcs/
 COPY /srcs/www.conf /etc/php7/php-fpm.d/
 CMD sh /srcs/start.sh
