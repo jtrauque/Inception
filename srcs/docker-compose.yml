@@ -4,6 +4,7 @@ services:
         container_name: nginx
         # domainname: ${DOMAIN_NAME}
         build: ./requirements/nginx
+        image: nginx:v1
         restart: unless-stopped
         ports:
             - "443:443"
@@ -30,6 +31,7 @@ services:
           - WORDPRESS_DB_USER2=${WORDPRESS_DB_USER2}
           - WORDPRESS_USER_EMAIL2=${WORDPRESS_USER_EMAIL2}
           - WORDPRESS_DB_PASSWORD2=${WORDPRESS_DB_PASSWORD2}
+       image: wordpress:v1
        restart: unless-stopped
        volumes:
          - type: volume
@@ -61,6 +63,7 @@ services:
           - MYSQL_USER=${MYSQL_USER}
           - MYSQL_PASSWORD=${MYSQL_PASSWORD}
           - MYSQL_DATABASE=${MYSQL_DATABASE}
+      image: mariadb:v1
       restart: always
       volumes:
         - type: volume
