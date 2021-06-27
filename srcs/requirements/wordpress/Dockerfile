@@ -17,4 +17,4 @@ COPY /srcs/ /srcs/
 COPY /srcs/www.conf /etc/php7/php-fpm.d/
 CMD sh /srcs/start.sh
 
-EXPOSE 5050 5000 9000
+EXPOSE 9000

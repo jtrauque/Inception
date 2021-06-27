@@ -10,9 +10,7 @@ RUN mkdir /run/nginx
 RUN chown -R www:www /var/lib/nginx
 RUN chown -R www:www /www
 COPY  srcs  /srcs/
-# COPY  /srcs/index.html /var/www/html/
-# COPY  /srcs/index.php /var/www/html/
-COPY /srcs/nginx.conf  /etc/nginx/
+COPY  /srcs/nginx.conf  /etc/nginx/
 COPY  /srcs/nginx.key  /etc/ssl/
 COPY  /srcs/nginx.crt  /etc/ssl/
 

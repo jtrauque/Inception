@@ -2,7 +2,6 @@ version: '3.3'
 services:
     nginx:
         container_name: nginx
-        # domainname: ${DOMAIN_NAME}
         build: ./requirements/nginx
         image: nginx:v1
         restart: unless-stopped

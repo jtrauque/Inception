@@ -8,16 +8,12 @@ ARG MYSQL_ROOT_PASSWORD
 
 RUN apk update --no-cache
 RUN apk add mariadb mariadb-client
-# RUN apk add mariadb mariadb-common mariadb-client
-# RUN apk add mysql mysql-client
 
 RUN mkdir -p /run/mysqld/ && \
 	chown -R mysql:mysql /run/mysqld
 
 COPY ./srcs/ /srcs/
 COPY /srcs/my.cnf /etc/mysql/
-# RUN touch /var/log/mysqld.error.log && \
-#     chown mysql:mysql /var/log/mysqld.error.log
 RUN sed -i "7i user=mysql\ndatadir=/var/lib/mysql/" /etc/my.cnf.d/mariadb-server.cnf && \
 	mariadb-install-db --user=mysql --datadir=/var/lib/mysql --auth-root-authentication-method=normal
 
